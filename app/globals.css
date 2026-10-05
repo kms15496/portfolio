@@ -196,6 +196,37 @@ nav a { transition:color .2s ease, background-color .2s ease; }
     to { opacity:1; translate:0 0; }
   }
 }
+
+/* Floating return control appears only after the visitor has scrolled. */
+.back-to-top {
+  position:fixed;
+  right:max(22px,calc((100vw - 1200px)/2));
+  bottom:24px;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:44px;
+  padding:0 16px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--ink);
+  color:var(--bg);
+  box-shadow:0 12px 32px #00000026;
+  opacity:0;
+  visibility:hidden;
+  translate:0 12px;
+  pointer-events:none;
+  transition:opacity .25s ease,translate .25s ease,visibility .25s;
+}
+.back-to-top.visible { opacity:1; visibility:visible; translate:0 0; pointer-events:auto; }
+.back-to-top:hover { translate:0 -3px; }
+.back-to-top span { font-size:11px; font-weight:600; }
+@media(max-width:700px) {
+  .back-to-top { right:18px; bottom:18px; width:46px; padding:0; justify-content:center; }
+  .back-to-top span { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+}
+@media(prefers-reduced-motion:reduce) { .back-to-top { transition:none; } }
 @media(max-width:700px) { html { scroll-padding-top:92px; } }
 
 /* Black and white theme, with neutral grays for depth and readable hierarchy. */
