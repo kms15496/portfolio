@@ -7,14 +7,13 @@ const storageKey = 'portfolio-theme';
 
 export default function ThemeToggle() {
   useLayoutEffect(() => {
-    const system = window.matchMedia('(prefers-color-scheme: dark)');
     let preference: string | null = null;
     try { preference = localStorage.getItem(storageKey); } catch {}
     const apply = () => {
       document.documentElement.dataset.theme =
         preference === 'dark' || preference === 'light'
           ? preference
-          : system.matches ? 'dark' : 'light';
+          : 'dark';
     };
     const sync = (event: StorageEvent) => {
       if (event.key === storageKey || event.key === null) {
@@ -22,15 +21,9 @@ export default function ThemeToggle() {
         apply();
       }
     };
-    const changed = () => {
-      try { preference = localStorage.getItem(storageKey); } catch {}
-      apply();
-    };
     apply();
-    system.addEventListener('change', changed);
     window.addEventListener('storage', sync);
     return () => {
-      system.removeEventListener('change', changed);
       window.removeEventListener('storage', sync);
     };
   }, []);
